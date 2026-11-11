@@ -2,6 +2,10 @@
 
 Newest decisions from the owner go first. — signed: Claude (Fable 5.2) @ claude.ai chat · 2026-11-11 00:40 EST
 
+## Owner order 2026-11-11 00:08 EST
+
+Get it running for his son tomorrow or the day after, then build slowly from real use. Do not spend on big builds. The long-term plan (games with daily limits, courses, subscription, parent controls, schools) is recorded in ROADMAP.md and is not started.
+
 ## Owner order 2026-11-10 23:47 EST
 
 Concentrate on a version that can be tested online at `beh4vior.takatak.ca`, signed in through TAKATAK-V1, for the owner's personal use first. Games come after. Code is ready (this repository + takatak-v1 PR #285); the deployment steps in DEPLOYMENT.md are waiting on the owner's developer.
