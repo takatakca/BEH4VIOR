@@ -1,4 +1,4 @@
-# BEH4VIOR / TAKATAK-V1 bridge (planned, not built)
+# BEH4VIOR / TAKATAK-V1 bridge (built on both sides, not deployed, never run against the real V1)
 
 — signed: Claude (Fable 5.2) @ claude.ai chat · 2026-11-10 23:55 EST
 
@@ -6,7 +6,7 @@ Counterpart note in V1: `docs/BEH4VIOR_BRIDGE.md` in https://github.com/takatakc
 
 TAKATAK-V1 remains the single master dashboard for sign-in, identity, subscriptions, entitlements and billing. BEH4VIOR is a separately deployed experience. It never owns customer identity and never takes a payment. This mirrors the Academy bridge already in V1 (`docs/TAKATAK_ACADEMY_BRIDGE.md`, routes under `src/app/api/experiences/academy/`).
 
-## Routes to add in V1 (proposal)
+## Routes in V1 (takatak-v1 PR #285)
 
 - `/dashboard/beh4vior`: dashboard entry. Opens BEH4VIOR's `/auth/start` using `TAKATAK_BEH4VIOR_URL`; shows a truthful "not configured" state when missing.
 - `GET /api/experiences/beh4vior/launch?state=<43-character base64url>`: TAKATAK login (with `next` preserved), profile sync, active master identity check, 90-second one-time launch code hashed in `ExperienceLaunchCode`, redirect to the configured callback.
@@ -23,9 +23,12 @@ BEH4VIOR: `TAKATAK_BEH4VIOR_LAUNCH_URL`, `TAKATAK_BEH4VIOR_EXCHANGE_URL`, `TAKAT
 
 Children, classes, daily sheets, goals and messages live in BEH4VIOR's own database, keyed by `masterIdentityId`. V1 receives no child data: not names, not scores, not notes. V1 knows only that an adult account may open the product.
 
-## What changes here when it is built
+## This side
 
-`app/storage-local.js` is replaced by an adapter with the same three calls that talks to the BEH4VIOR API using the session from the exchange. `app/index.html` does not change.
+- `GET /auth/start`: makes a 43-character state, keeps it in a short HttpOnly cookie, redirects to V1's launch URL.
+- `GET /auth/callback?code&state`: checks the state against the cookie, exchanges the code server-to-server with the bearer token, checks `productCode` and `beh4vior_free`, then sets this app's own signed session cookie (12 hours at most).
+- `POST /auth/logout`: clears the cookie.
+- `app/storage-server.js` is the page's adapter to `/api/state`, `/api/days/:date`, `/api/child`.
 
 ## Open point for V1's owner and coordinator
 

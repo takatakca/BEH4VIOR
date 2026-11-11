@@ -5,8 +5,9 @@
  *   doc('settings/child').onSnapshot(next)
  *   collection('days').onSnapshot(next)
  *   collection('days').doc('YYYY-MM-DD').set(day)
- * The TAKATAK-V1 version replaces this file with an adapter that calls the
- * BEH4VIOR API behind a V1 session (docs/TAKATAK_V1_BRIDGE.md).
+ * The server serves this file as /storage.js only in demo mode (npm run demo).
+ * The real adapter is storage-server.js: same calls, saved on the server
+ * behind a TAKATAK-V1 session (docs/TAKATAK_V1_BRIDGE.md).
  *
  * RULE: never put a real child's name or school report in this repository.
  * The seed below is invented.
@@ -41,9 +42,14 @@
   function snap() {
     return { metadata: { fromCache: false }, docs: Object.keys(state.days).sort().map(function (id) { return { id: id, data: function () { return state.days[id]; } }; }) };
   }
+  var note = document.getElementById('note');
+  if (note) note.textContent = 'Demo with invented example data. Changes are saved on this device only.';
   window.BEH4VIOR_STORE = {
     doc: function () {
-      return { onSnapshot: function (next) { setTimeout(function () { next({ exists: !!state.child, data: function () { return state.child; } }); }, 0); return function () {}; } };
+      return {
+        onSnapshot: function (next) { setTimeout(function () { next({ exists: !!state.child, data: function () { return state.child; } }); }, 0); return function () {}; },
+        set: function (data) { state.child = { name: String(data.name || '') }; persist(); return Promise.resolve(); }
+      };
     },
     collection: function () {
       return {

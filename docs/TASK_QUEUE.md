@@ -1,6 +1,10 @@
 # BEH4VIOR: task queue
 
-Newest decisions from the owner go first. — signed: Claude (Fable 5.2) @ claude.ai chat · 2026-11-10 23:55 EST
+Newest decisions from the owner go first. — signed: Claude (Fable 5.2) @ claude.ai chat · 2026-11-11 00:40 EST
+
+## Owner order 2026-11-10 23:47 EST
+
+Concentrate on a version that can be tested online at `beh4vior.takatak.ca`, signed in through TAKATAK-V1, for the owner's personal use first. Games come after. Code is ready (this repository + takatak-v1 PR #285); the deployment steps in DEPLOYMENT.md are waiting on the owner's developer.
 
 ## Owner decisions needed
 
@@ -11,6 +15,8 @@ Newest decisions from the owner go first. — signed: Claude (Fable 5.2) @ claud
 
 ## Next, in order
 
+0. Deploy for the private test (DEPLOYMENT.md), then the owner re-enters his first sheets on the live site.
+
 1. French and English on every screen (Quebec market; the sheet itself mixes both).
 2. Roles and sharing: parent, teacher, read-only family member. Depends on the V1 bridge.
 3. V1 bridge: launch and exchange routes in V1, session and storage adapter here (TAKATAK_V1_BRIDGE.md).
@@ -18,7 +24,12 @@ Newest decisions from the owner go first. — signed: Claude (Fable 5.2) @ claud
 5. Printable take-home card of the five, with space to colour.
 6. Photo of the paper sheet → faces filled in for the parent to confirm. Never automatic: a wrong face changes a child's score.
 7. Parent and teacher messages attached to a day.
-8. Colouring page and simple games as rewards.
+8. Colouring page and games. Owner's ideas, 2026-11-10:
+   - Games stay available after a bad day, in a separate side of the app, but that side is educational: finger-tracing letters (B, C, D…).
+   - Each age group gets its own set of the same kinds of games. The first child is five.
+   - A counting game: fish fall from the sky worth +1, +2, +3, +4; tap them to add up to exactly 20. Going over 20 loses and restarts.
+   - Later: puzzles and matching.
+   - Open question for the owner: do the fun games unlock by score, or are they always open with stars as the only score?
 
 ## Gate before any real child's data leaves a parent's own device
 

@@ -10,24 +10,37 @@ The school already sends home a sheet with a face for each part of the day. BEH4
 
 ## Status
 
-Prototype, example data only, not deployed. See [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md).
+Launch-ready code for a private test at `beh4vior.takatak.ca`, signed in through TAKATAK-V1. Not deployed yet. See [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) and [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 
 ## Try it
 
-Open `app/index.html` in a browser (or serve the `app/` folder with any static server). Data is saved in that browser only.
+Node 22.
+
+```
+npm ci
+npm run demo   # invented example data, saved in the browser
+npm run dev    # real server, local test account, JSON file in data/
+npm test
+```
+
+Then open http://localhost:3000.
 
 ## Layout
 
 | Path | What it is |
 | --- | --- |
-| `app/index.html` | The tracker: The five, School sheet, Days |
-| `app/storage-local.js` | Storage adapter for the prototype (this device only, invented example data) |
+| `server.js`, `lib/` | Node.js server: page, JSON API, sign-in handoff with V1, Postgres storage |
+| `app/index.html`, `app/app.js` | The tracker: The five, School sheet, Days |
+| `app/storage-server.js` | The page's storage adapter for the real server |
+| `app/storage-local.js` | Demo adapter (this device only, invented example data) |
+| `test/` | Server tests |
+| `Dockerfile`, `.env.example` | Deployment |
 | `docs/` | Status, task queue, handoff, deployment, decisions, TAKATAK-V1 bridge |
 | `WORKLOG.md` | One line per piece of work, newest first |
 
 ## TAKATAK-V1
 
-[TAKATAK-V1](https://github.com/takatakca/takatak-v1) stays the single master dashboard for sign-in, identity, subscriptions and billing. BEH4VIOR is a separate experience that V1 launches, the same way it launches Academy. The contract is in [docs/TAKATAK_V1_BRIDGE.md](docs/TAKATAK_V1_BRIDGE.md). It is planned, not built.
+[TAKATAK-V1](https://github.com/takatakca/takatak-v1) stays the single master dashboard for sign-in, identity, subscriptions and billing. BEH4VIOR is a separate experience that V1 launches, the same way it launches Academy. The contract is in [docs/TAKATAK_V1_BRIDGE.md](docs/TAKATAK_V1_BRIDGE.md). Both sides are written; they have not been deployed or run against each other.
 
 ## Privacy rule
 
