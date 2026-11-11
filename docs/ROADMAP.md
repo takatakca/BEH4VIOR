@@ -43,3 +43,16 @@ Note: a website cannot control other apps on a phone. This needs a native app us
 ## Stage 6: schools
 
 Teacher accounts, parent and teacher messages, scanning the paper sheet. Only after the first school agrees, and after the consent and privacy gate in TASK_QUEUE.md.
+
+## Public page (owner's direction, 2026-11-11)
+
+The owner wants a public page laid out like the reading-tutor site he shared: one promise at the top with a call to action, three benefits, how it works, a section for parents and one for teachers, proof, a comparison table, the offer, a last call to action. It would be the signed-out page at beh4vior.takatak.ca. Not started.
+
+Wording rules agreed with the owner:
+- Talk about **behaviour at school**, which is what parents and teachers actually see. Do not present the product as being for a named condition.
+- It is fine to say it is for any child who needs extra support with behaviour, with or without a diagnosis.
+- Never say or imply that it diagnoses, treats or replaces a professional or the school's own plan.
+- No promised results, numbers, awards or quotes until they are real and can be shown. No copied text or images from other sites.
+- Any sentence that describes children clinically is reviewed by a qualified professional before it is published.
+
+— signed: Claude (Fable 5.2) @ claude.ai chat · 2026-11-11 00:20 EST
