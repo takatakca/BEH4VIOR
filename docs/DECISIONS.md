@@ -12,3 +12,14 @@
 6. **Storage sits behind one adapter** (`window.BEH4VIOR_STORE`) so the page does not change when V1 sign-in and a server arrive.
 7. **V1 owns identity and billing.** BEH4VIOR follows the Academy bridge pattern and adds no login of its own.
 8. **No real child data in this public repository**, ever.
+
+## 2026-11-11
+
+9. **A small Node.js server, no framework.** One page, five API routes and a sign-in handoff do not need Next.js. One dependency (`pg`). It fits V1 through the HTTP bridge, not through a shared framework. Revisit when roles, messages or games need real routing.
+10. **Session lasts up to 12 hours**, set by V1's exchange. When it ends the page sends the parent back through V1, which is silent if they are still signed in there. A deactivated V1 account loses access within 12 hours.
+11. **Any V1 account gets its own empty space.** No allow-list for the private test: accounts are isolated, and an allow-list would be one more secret to manage. Revisit before the address is public.
+12. **The page script moved out of the HTML** (`app/app.js`) so the server can send a strict Content-Security-Policy with no inline script.
+13. **Browser input is cleaned on the server** (`lib/validate.js`): known parts of the day and faces only, length limits, five goals at most. Unknown fields are dropped.
+14. **A delete path exists from day one**: `DELETE /api/everything` removes every row of the signed-in account. No button for it yet.
+
+— signed: Claude (Fable 5.2) @ claude.ai chat · 2026-11-11 00:40 EST
