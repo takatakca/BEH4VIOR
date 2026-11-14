@@ -2,6 +2,13 @@
 
 Last updated 2026-11-11. — signed: Claude (Fable 5.2) @ claude.ai chat · 2026-11-11 00:40 EST
 
+## 2026-11-14 incremental work (feature branch; not yet deployed)
+
+- Added a browser-local four-fold worksheet editor at `/foldable` and a Print card link from the tracker. One letter-size sheet, four quadrants, editable child's name, date, motivation, previous score, four goals (10 + 30 + 30 + 30), the two- or three-choice printed faces and a single dotted name tracing row.
+- The score logic is independently tested; GitHub Actions checks `npm test` and JavaScript syntax. No real child data in source or test fixtures. The page makes no API writes.
+- **This is not yet live**. No real-browser print proof, cross-device sync, teacher roles or production privacy sign-off. The server-side tracker still uses the original five goals and must not be described as having switched to four.
+- Both bridge PRs BEH4VIOR #1 and TAKATAK-V1 #285 were merged on November 11; production deployment and real inter-service sign-in still require confirmation.
+
 ## What exists
 
 - **The tracker page** (`app/index.html`, `app/app.js`), three views:
