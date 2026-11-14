@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Four-fold challenge maker — BEH4VIOR</title>
+<style>
+:root{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:#172439;background:#f3f6fb}
+*{box-sizing:border-box}body{margin:0}button,input,textarea{font:inherit}button{cursor:pointer}
+header,.editor{max-width:850px;margin:auto;padding:16px}header a{color:#254fc6}h1{font-size:1.6rem}
+.editor{display:grid;gap:14px}.editor fieldset{border:1px solid #c4cad9;border-radius:12px;background:white;display:grid;gap:10px}
+.editor label{display:grid;gap:5px;font-weight:600}.editor input,.editor textarea{border:1px solid #a6afc2;border-radius:8px;padding:9px;max-width:100%}
+.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}.small{font-size:.85rem;color:#45546b}
+.goal-input{display:grid;grid-template-columns:1fr 52px;gap:10px;align-items:center}
+.rating-controls{display:flex;justify-content:space-around;gap:10px;align-items:center;padding-bottom:4px}
+.choice{width:70px;min-height:74px;border:2px solid #b8bdca;border-radius:12px;background:#fff;display:grid;place-items:center;gap:0;font-size:.8rem}
+.choice svg{width:38px;height:38px}.choice[aria-pressed="true"]{border-color:#204cc8;background:#eaf0ff}
+.choice:disabled{opacity:.32;cursor:not-allowed}.actions{display:flex;gap:10px;flex-wrap:wrap}
+.actions button{border:1px solid #1e3d8b;background:#fff;color:#193471;border-radius:9px;padding:10px 14px;font-weight:700}
+.actions #print{background:#1e3d8b;color:white}.hint{margin:0;color:#485672;font-size:.9rem}
+.preview-wrap{overflow-x:auto;padding:18px 8px 30px;background:#e6e8ef}
+.paper{width:7.9in;min-height:10.4in;margin:0 auto;background:#fff;box-shadow:0 8px 24px #26324626;color:#000;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:5.2in 5.2in}
+.panel{padding:.18in;min-width:0;overflow:hidden;position:relative;display:flex;flex-direction:column;align-items:center;text-align:center}
+.panel:nth-child(odd){border-right:1px dashed #777}.panel:nth-child(-n+2){border-bottom:1px dashed #777}
+.bubble{border:2px solid #000;border-radius:22px;padding:7px 10px;margin:8px 0 14px;font-size:20px;line-height:1.15;font-weight:900;text-transform:uppercase}
+.cover-title{font-size:24px;margin-top:32px}.outline{font-size:34px;letter-spacing:1px;-webkit-text-stroke:1px #000;color:#fff}
+.doodle{font-size:56px;font-weight:400;margin:20px 0}.print-message{font-size:20px;line-height:1.4;margin:12px 8px;overflow-wrap:anywhere}
+.mini-title{font-weight:800;font-size:17px;margin:12px 0 4px}
+.legend{width:100%;text-align:left;padding:0 6px}.legend p{display:flex;align-items:center;gap:9px;margin:5px 0;font-size:14px}
+.legend svg{width:28px;height:28px;flex:none}
+.previous{border:1px solid #000;border-radius:12px;padding:10px;margin:14px 0 9px;width:100%;font-size:16px}
+.trace{width:100%;margin-top:auto}.trace svg{width:100%;height:76px;overflow:visible}
+.trace line{stroke:#000;stroke-width:1}.trace .mid{stroke-dasharray:8 6;stroke-width:.8}
+.trace text{font:bold 51px sans-serif;fill:none;stroke:#000;stroke-width:1.7;stroke-dasharray:1 5;stroke-linecap:round;paint-order:stroke}
+.print-goals{width:100%;display:grid;gap:5px;margin:2px 0}
+.print-goal{border-bottom:1px solid #888;text-align:left;padding:7px 1px;display:grid;grid-template-columns:22px minmax(0,1fr) 91px;align-items:center;gap:4px;font-size:12px;line-height:1.25;min-height:70px}
+.print-goal strong{font-size:15px}.print-goal .faces{display:flex;gap:4px;justify-content:flex-end}
+.print-goal svg{width:27px;height:27px}.print-goal .selected{outline:2px solid #000;border-radius:50%}
+.print-goal .notapplicable{background:#000;color:#fff;border-radius:5px;font-size:9px;font-weight:800;padding:6px 1px}
+.max-label{font-size:10px;font-weight:800;margin:1px 0 0}
+.print-score{margin-top:auto;padding:9px;border:1px solid #000;border-radius:15px;font-weight:900;font-size:16px}
+.print-footer{font-size:12px;margin:9px 0}.print-name{overflow-wrap:anywhere}
+@page{size:letter portrait;margin:.3in}
+@media print{html,body{padding:0;margin:0;background:#fff}header,.editor,.preview-wrap>h2{display:none!important}
+.preview-wrap{padding:0;overflow:visible;background:#fff}.paper{width:7.9in;height:10.4in;min-height:10.4in;margin:0;box-shadow:none;break-after:avoid;page-break-inside:avoid}
+.panel{break-inside:avoid}.print-goal{min-height:65px}
+}
+</style></head><body>
+<header><p><a href="/">← Back to daily tracker</a></p><h1>Four-fold challenge maker</h1><p class="small">One sheet, four equal panels, three smiley choices. Stored on this device only; not sent to BEH4VIOR or TAKATAK servers.</p></header>
+<section class="editor" aria-label="Edit worksheet"><div class="controls">
+<label>Date <input id="day" type="date"></label>
+<label>Child's first name <input id="name" autocomplete="off" maxlength="40" placeholder="First name"></label>
+<label>Previous day's score, if known <input id="previous" type="number" min="0" max="100" placeholder="out of 100"></label></div>
+<label>Motivation message <textarea id="motivation" maxlength="200" rows="2"></textarea></label>
+<fieldset><legend><strong>Four challenges — 10 + 30 + 30 + 30 = 100 points</strong></legend>
+<div id="goals-editor"></div></fieldset>
+<p class="small">Choose a face for each goal. Goal 1 is Yes/No (0 or 10). Goals 2–4 earn 0, 15, or 30. A blank face is unscored.</p>
+<div class="actions"><button type="button" id="print">Print or save as PDF</button><button type="button" id="clear">Clear this day's saved worksheet</button></div>
+<p id="status" role="status" class="hint"></p>
+</section>
+<div class="preview-wrap"><h2 style="max-width:850px;margin:0 auto 12px">Print preview</h2>
+<section class="paper" aria-label="Four-fold printable worksheet">
+<div class="panel"><h2 class="bubble cover-title"><span id="cover-name" class="print-name">My</span><br>Today we make <span class="outline">better choices!</span></h2><div class="doodle" aria-hidden="true">☆ ☺ ☆</div><p class="print-message">I can be kind, make good choices, and work on my goals at school.</p><div class="doodle" aria-hidden="true">♡ ✎</div></div>
+<div class="panel"><div class="doodle" aria-hidden="true">☆ ♡ ☆</div><h2 class="bubble">My motivation</h2><p class="print-message" id="print-motivation"></p><div class="doodle" style="margin-top:auto" aria-hidden="true">☆ ☺ ♡</div></div>
+<div class="panel"><h2 class="bubble">Scoring legend</h2><div class="legend" id="legend"></div><div class="previous"><strong>Previous day</strong><br><span id="print-previous">Not scored</span></div><p class="mini-title">I can trace my name:</p><div class="trace"><svg viewBox="0 0 340 80" aria-label="Dotted name tracing practice"><line x1="8" x2="332" y1="13" y2="13"/><line class="mid" x1="8" x2="332" y1="39" y2="39"/><line x1="8" x2="332" y1="67" y2="67"/><text id="print-trace" x="170" y="64" text-anchor="middle" textLength="298" lengthAdjust="spacingAndGlyphs">NAME</text></svg></div></div>
+<div class="panel"><h2 class="bubble" id="challenge-title">My daily challenges</h2><div class="print-goals" id="print-goals"></div><div class="print-score">My score: <span id="print-score">— / 100</span></div><p class="print-footer">Every better choice helps me learn and grow!</p></div>
+</section></div>
+<script src="/foldable-core.js"></script><script src="/foldable.js"></script>
+</body></html>
