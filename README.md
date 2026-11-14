@@ -8,6 +8,12 @@ The school already sends home a sheet with a face for each part of the day. BEH4
 - The teacher does nothing extra. A goal is tied to a part of the day the teacher already rates, and the face for that part of the day fills the star.
 - A smiley is 20%, a straight face is 10%, a sad face is 0%.
 
+## Four-fold worksheet maker (first weekly increment)
+
+Open **/foldable** (or **Print card** from the daily tracker). This is a separate printable-card editor: four equal portrait-letter panels; 4 editable goals; a 10-point Yes/No reflection question plus three 30-point goals; sad / straight / happy scoring faces; previous score; motivational note; and one dotted first-name tracing line. The teacher's assessment stays final. The child's scores and name in this editor use browser localStorage only and **do not upload or sync**. Use a trusted device; Clear this day's saved worksheet removes the selected day from that browser. Printing is local.
+
+The pre-existing **The five** tracker remains 5 × 20 points and its school-sheet storage / TAKATAK sign-in are unchanged. The card is a small standalone V1 experiment, **not** a replacement for that logic or the production launch. Do not enter real child data in GitHub, logs or demo fixtures.
+
 ## Status
 
 Launch-ready code for a private test at `beh4vior.takatak.ca`, signed in through TAKATAK-V1. Not deployed yet. See [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) and [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
