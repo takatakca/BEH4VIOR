@@ -124,7 +124,17 @@
     $('print-previous').textContent = state.previous === '' ? 'Not scored' : state.previous + '% / 100';
     $('challenge-title').textContent = 'My ' + dayLabel(day) + ' challenges';
     $('print-score').textContent = state.goals.some(g => g.rating) ? core.score(state) + ' / 100' : '— / 100';
-    $('print-trace').textContent = state.name ? state.name.toUpperCase() : 'NAME';
+    const trace = window.BEH4VIOR_TRACING.traceName(state.name);
+    const traceRoot = $('print-trace');
+    traceRoot.replaceChildren();
+    traceRoot.setAttribute('aria-label', 'Trace ' + trace.label);
+    for (const glyph of trace.glyphs) {
+      if (!glyph.path) continue;
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', glyph.path);
+      path.setAttribute('transform', glyph.transform);
+      traceRoot.append(path);
+    }
     drawPrintGoals();
   }
   function drawLegend() {
