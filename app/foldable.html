@@ -28,7 +28,7 @@ header,.editor{max-width:850px;margin:auto;padding:16px}header a{color:#254fc6}h
 .previous{border:1px solid #000;border-radius:12px;padding:10px;margin:14px 0 9px;width:100%;font-size:16px}
 .trace{width:100%;margin-top:auto}.trace svg{width:100%;height:76px;overflow:visible}
 .trace line{stroke:#000;stroke-width:1}.trace .mid{stroke-dasharray:8 6;stroke-width:.8}
-.trace text{font:bold 51px sans-serif;fill:none;stroke:#000;stroke-width:1.7;stroke-dasharray:1 5;stroke-linecap:round;paint-order:stroke}
+.trace path{fill:none;stroke:#000;stroke-width:1.45;stroke-dasharray:.1 2.8;stroke-linecap:round;stroke-linejoin:round}
 .print-goals{width:100%;display:grid;gap:5px;margin:2px 0}
 .print-goal{border-bottom:1px solid #888;text-align:left;padding:7px 1px;display:grid;grid-template-columns:22px minmax(0,1fr) 91px;align-items:center;gap:4px;font-size:12px;line-height:1.25;min-height:70px}
 .print-goal strong{font-size:15px}.print-goal .faces{display:flex;gap:4px;justify-content:flex-end}
@@ -59,8 +59,8 @@ header,.editor{max-width:850px;margin:auto;padding:16px}header a{color:#254fc6}h
 <section class="paper" aria-label="Four-fold printable worksheet">
 <div class="panel"><h2 class="bubble cover-title"><span id="cover-name" class="print-name">My</span><br>Today we make <span class="outline">better choices!</span></h2><div class="doodle" aria-hidden="true">☆ ☺ ☆</div><p class="print-message">I can be kind, make good choices, and work on my goals at school.</p><div class="doodle" aria-hidden="true">♡ ✎</div></div>
 <div class="panel"><div class="doodle" aria-hidden="true">☆ ♡ ☆</div><h2 class="bubble">My motivation</h2><p class="print-message" id="print-motivation"></p><div class="doodle" style="margin-top:auto" aria-hidden="true">☆ ☺ ♡</div></div>
-<div class="panel"><h2 class="bubble">Scoring legend</h2><div class="legend" id="legend"></div><div class="previous"><strong>Previous day</strong><br><span id="print-previous">Not scored</span></div><p class="mini-title">I can trace my name:</p><div class="trace"><svg viewBox="0 0 340 80" aria-label="Dotted name tracing practice"><line x1="8" x2="332" y1="13" y2="13"/><line class="mid" x1="8" x2="332" y1="39" y2="39"/><line x1="8" x2="332" y1="67" y2="67"/><text id="print-trace" x="170" y="64" text-anchor="middle" textLength="298" lengthAdjust="spacingAndGlyphs">NAME</text></svg></div></div>
+<div class="panel"><h2 class="bubble">Scoring legend</h2><div class="legend" id="legend"></div><div class="previous"><strong>Previous day</strong><br><span id="print-previous">Not scored</span></div><p class="mini-title">I can trace my name:</p><div class="trace"><svg viewBox="0 0 340 80" aria-label="Dotted name tracing practice"><line x1="8" x2="332" y1="13" y2="13"/><line class="mid" x1="8" x2="332" y1="39" y2="39"/><line x1="8" x2="332" y1="67" y2="67"/><g id="print-trace" aria-hidden="true"></g></svg></div></div>
 <div class="panel"><h2 class="bubble" id="challenge-title">My daily challenges</h2><div class="print-goals" id="print-goals"></div><div class="print-score">My score: <span id="print-score">— / 100</span></div><p class="print-footer">Every better choice helps me learn and grow!</p></div>
 </section></div>
-<script src="/foldable-core.js"></script><script src="/foldable.js"></script>
+<script src="/foldable-core.js"></script><script src="/tracing-core.js"></script><script src="/foldable.js"></script>
 </body></html>
