@@ -2,6 +2,13 @@
 
 Last updated 2026-11-14. — signed: GPT-6 @ ChatGPT · 2026-11-14 (preserving older notes below)
 
+## 2026-11-14 offline export (PR #7 merged)
+
+- Standalone HTML build: `npm run build:offline` creates `dist/BEH4VIOR-Fourfold-Offline.html` with local scripts and a no-network CSP. GitHub CI artifact `beh4vior-offline-app` includes the editable HTML and a sample printable PDF. Open HTML in a browser; use Print / Save as PDF.
+- 14 tests passed, including the offline bundle test. GitHub Actions run 43658179672 printed both the served and offline versions in Chrome; each was one US-letter page; downloaded and visually inspected the rendered offline PDF.
+- The offline HTML **does not require TAKATAK-V1 login** and can work on a trusted device, but it does not synchronize across devices or with school. Local browser storage may be unavailable for `file://` pages; users should print/save before closing.
+- BEH4VIOR's main 5×20 saved goals remain separate from the standalone 10+30+30+30 form (issue #6). Hosted deployment, privacy approval, Android print and real TAKATAK authentication remain pending (issue #5).
+
 ## 2026-11-14 four-fold worksheet release (PR #4; not yet deployed)
 
 - Added a browser-local four-fold worksheet editor at `/foldable` and a Print card link from the tracker. One letter-size sheet, four quadrants, editable child's name, date, motivation, previous score, four goals (10 + 30 + 30 + 30), the two- or three-choice printed faces and a single dotted name tracing row.
