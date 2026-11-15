@@ -2,6 +2,15 @@
 
 Newest decisions from the owner go first. — signed: Claude (Fable 5.2) @ claude.ai chat · 2026-11-11 00:40 EST
 
+## Owner order 2026-11-14: grow a little every week
+
+Start with a real printable four-fold child challenge worksheet, then make small tested additions weekly rather than rewriting the whole product. The worksheet design established by the owner is **four goals totaling 100 points**: one 10-point binary feelings/reflection goal, and three 30-point behavior goals, three selectable sad/neutral/happy faces for the large goals, black N/A over the neutral choice for the binary goal, a motivation note, prior-day score, and one traceable first name.
+
+**Current branch:** isolated browser-local printable editor, no backend integration, no private child data in GitHub.
+**Next priorities, in order:** (1) verify portrait print/folding physically and on a phone, (2) get the existing TAKATAK sign-in + deployment live after privacy/consent gates, (3) reconcile the old 5×20 tracker with optional 4-goal weight presets and server persistence, (4) parent-controlled review before teacher sharing, (5) opt-in French/English localization and data export/delete UI, (6) later photo-to-face confirmation, not automatic scoring.
+
+**Release requirement:** don't call it production/100% without printed-sheet QA, authentication + account isolation tests, privacy review and a real two-device smoke test. Keep goals positive and educational; the teacher decides recess eligibility.
+
 ## Owner order 2026-11-11 00:08 EST
 
 Get it running for his son tomorrow or the day after, then build slowly from real use. Do not spend on big builds. The long-term plan (games with daily limits, courses, subscription, parent controls, schools) is recorded in ROADMAP.md and is not started.

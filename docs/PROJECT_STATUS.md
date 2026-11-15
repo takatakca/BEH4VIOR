@@ -1,6 +1,13 @@
 # BEH4VIOR: project status
 
-Last updated 2026-11-11. — signed: Claude (Fable 5.2) @ claude.ai chat · 2026-11-11 00:40 EST
+Last updated 2026-11-14. — signed: GPT-6 @ ChatGPT · 2026-11-14 (preserving older notes below)
+
+## 2026-11-14 four-fold worksheet release (PR #4; not yet deployed)
+
+- Added a browser-local four-fold worksheet editor at `/foldable` and a Print card link from the tracker. One letter-size sheet, four quadrants, editable child's name, date, motivation, previous score, four goals (10 + 30 + 30 + 30), the two- or three-choice printed faces and a single dotted name tracing row.
+- The score logic and tracing are independently tested; 13 Node tests pass. GitHub Actions checks `npm test`, JavaScript syntax, a real headless Chrome PDF render, and a one-page US-letter assertion (run 43657473886). No real child data in source or test fixtures. The page makes no API writes.
+- **This is not yet live**. Headless Chrome print proof passed and was inspected visually (one page, four upright fold panels); manual physical-paper and Android-device checks, cross-device sync, teacher roles, and production privacy sign-off are still pending. The server-side tracker still uses the original five goals and must not be described as having switched to four.
+- Both bridge PRs BEH4VIOR #1 and TAKATAK-V1 #285 were merged on November 11; production deployment and real inter-service sign-in still require confirmation.
 
 ## What exists
 
@@ -10,7 +17,7 @@ Last updated 2026-11-11. — signed: Claude (Fable 5.2) @ claude.ai chat · 2026
   - **Days**: every day with its score and faces, and the child's first name.
 - **A Node.js server** (`server.js`, `lib/`): serves the page, a small JSON API, and the sign-in handoff with TAKATAK-V1. Every row is scoped to the signed-in adult's master identity. Postgres in production.
 - **Two storage adapters** for the page: `storage-server.js` (the real one) and `storage-local.js` (demo, invented data, browser only).
-- **V1 side**: launch and exchange routes, dashboard entry and nav item, in takatak-v1 PR #285. Not merged.
+- **V1 side**: launch and exchange routes, dashboard entry and nav item, merged in takatak-v1 PR #285 on 2026-11-11; deployment still unverified.
 - **Dockerfile and runbook** (`docs/DEPLOYMENT.md`) for `beh4vior.takatak.ca`.
 - The owner also has a private page on claude.ai with his own family's first sheets. That data is not in this repository.
 

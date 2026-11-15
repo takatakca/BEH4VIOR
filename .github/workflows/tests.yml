@@ -1,0 +1,43 @@
+name: BEH4VIOR tests
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: node --check app/foldable.js
+      - run: node --check app/foldable-core.js
+      - run: node --check app/tracing-core.js
+      - name: Headless browser print QA (invented example only)
+        run: |
+          set -euo pipefail
+          BEH4VIOR_DEMO=1 node server.js > /tmp/beh4vior-demo.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          for attempt in 1 2 3 4 5 6 7 8 9 10; do
+            if curl --fail --silent http://127.0.0.1:3000/foldable > /dev/null; then break; fi
+            sleep 1
+          done
+          curl --fail --silent http://127.0.0.1:3000/tracing-core.js > /dev/null
+          browser="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          "$browser" --headless --no-sandbox --disable-dev-shm-usage --disable-gpu --no-pdf-header-footer --virtual-time-budget=2000 --print-to-pdf=/tmp/beh4vior-foldable.pdf http://127.0.0.1:3000/foldable
+          test -s /tmp/beh4vior-foldable.pdf
+          python3 -m pip install --quiet pypdf
+          python3 -c 'from pypdf import PdfReader; pages=len(PdfReader("/tmp/beh4vior-foldable.pdf").pages); print("Printed pages:",pages); assert pages==1,"Foldable worksheet spilled to multiple pages"'
+      - name: Save print QA PDF for review
+        uses: actions/upload-artifact@v4
+        with:
+          name: foldable-print-qa
+          path: /tmp/beh4vior-foldable.pdf

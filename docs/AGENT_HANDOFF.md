@@ -1,5 +1,11 @@
 # BEH4VIOR: agent handoff
 
+## 2026-11-14 update — GPT-6 @ ChatGPT
+
+PR #4 (`feat/foldable-worksheet-v1-20261114`) adds a standalone four-fold worksheet maker at `/foldable`, linked from the existing tracker. It is browser-local (not shared with the server), and preserves the original five 20-point goals. The new print card has 4 goals worth 10+30+30+30, sad/neutral/happy faces with binary first goal, editable motivation and previous score, and one real dotted-stroke first-name tracing row. `npm test` currently has 13 passing tests. CI run 43657473886 generated a single-page US-letter PDF in Chrome and the rendered artifact was visually checked. Deployment, physical fold and Android print are still unverified. No real child data in public source. Both app PR #1 and V1 bridge PR #285 were merged on 2026-11-11, but no verified live BEH4VIOR site.
+
+**Next owner work:** physical paper and Android print test; confirm deployment platform (the Coolify-centric runbook may be out of date); complete privacy/consent gate, backups, live V1 authentication, account isolation and delete path before real child records go to a server. Do not claim production-ready until these pass.
+
 ## Repository and baseline
 takatakca/BEH4VIOR. main 0741b8a holds the first static prototype. Branch `claude/node-launch` (PR open) holds the Node.js server and the V1 sign-in handoff. Re-query main and open PRs before every push.
 
