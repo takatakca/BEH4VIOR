@@ -106,6 +106,7 @@ function createApp(env = process.env, deps = {}) {
     '/foldable.html': ['foldable.html', 'text/html; charset=utf-8'],
     '/foldable.js': ['foldable.js', 'text/javascript; charset=utf-8'],
     '/foldable-core.js': ['foldable-core.js', 'text/javascript; charset=utf-8'],
+    '/tracing-core.js': ['tracing-core.js', 'text/javascript; charset=utf-8'],
     '/storage.js': [cfg.demo ? 'storage-local.js' : 'storage-server.js', 'text/javascript; charset=utf-8'],
   };
 
