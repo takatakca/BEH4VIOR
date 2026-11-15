@@ -34,7 +34,8 @@ jobs:
           browser="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
           "$browser" --headless --no-sandbox --disable-dev-shm-usage --disable-gpu --no-pdf-header-footer --virtual-time-budget=2000 --print-to-pdf=/tmp/beh4vior-foldable.pdf http://127.0.0.1:3000/foldable
           test -s /tmp/beh4vior-foldable.pdf
-          test "$(pdfinfo /tmp/beh4vior-foldable.pdf | awk '/^Pages:/ {print $2}')" = "1"
+          python3 -m pip install --quiet pypdf
+          python3 -c 'from pypdf import PdfReader; pages=len(PdfReader("/tmp/beh4vior-foldable.pdf").pages); print("Printed pages:",pages); assert pages==1,"Foldable worksheet spilled to multiple pages"'
       - name: Save print QA PDF for review
         uses: actions/upload-artifact@v4
         with:
