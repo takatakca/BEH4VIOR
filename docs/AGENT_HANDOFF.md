@@ -1,5 +1,11 @@
 # BEH4VIOR: agent handoff
 
+## 2026-11-14 offline release follow-up — GPT-6 @ ChatGPT
+
+PR #7 (merged as `0a4160f`) ships `npm run build:offline`, generating a single self-contained printable HTML page. CI run 43658179672: 14 tests pass, both hosted and offline print variants yield exactly one US-letter PDF page, offline screenshot inspected. Artifact name `beh4vior-offline-app` contains both HTML and preview PDF. A local copy was delivered for immediate browser use without server or sign-in. No school/child data uploaded or committed.
+
+**Not finished:** private live hosted application, consent/privacy gate, Android physical printer test, school collaboration, 5×20 versus four weighted goal server persistence, and production two-account login verification. GitHub issues #5 and #6 are tracked. Owner's recurring BEH4VIOR weekly development task is active. No unattended or unreviewed production rollout is authorized.
+
 ## 2026-11-14 update — GPT-6 @ ChatGPT
 
 PR #4 (merged into main as `faad345` on 2026-11-14) adds a standalone four-fold worksheet maker at `/foldable`, linked from the existing tracker. It is browser-local (not shared with the server), and preserves the original five 20-point goals. The new print card has 4 goals worth 10+30+30+30, sad/neutral/happy faces with binary first goal, editable motivation and previous score, and one real dotted-stroke first-name tracing row. `npm test` currently has 13 passing tests. CI run 43657473886 generated a single-page US-letter PDF in Chrome and the rendered artifact was visually checked. Deployment, physical fold and Android print are still unverified. No real child data in public source. Both app PR #1 and V1 bridge PR #285 were merged on 2026-11-11, but no verified live BEH4VIOR site.
