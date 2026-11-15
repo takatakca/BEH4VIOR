@@ -10,7 +10,8 @@
     "start": "node server.js",
     "demo": "BEH4VIOR_DEMO=1 node server.js",
     "dev": "BEH4VIOR_DEV_LOGIN=1 node server.js",
-    "test": "node --test test/*.test.js"
+    "test": "node --test test/*.test.js",
+    "build:offline": "node scripts/build-offline.cjs"
   },
   "dependencies": {
     "pg": "8.13.1"

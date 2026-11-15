@@ -41,3 +41,16 @@ jobs:
         with:
           name: foldable-print-qa
           path: /tmp/beh4vior-foldable.pdf
+      - name: Build a standalone offline printable app
+        run: npm run build:offline
+      - name: Print offline file via headless Chrome
+        run: |
+          set -euo pipefail
+          browser="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          "$browser" --headless --no-sandbox --disable-dev-shm-usage --disable-gpu --no-pdf-header-footer --virtual-time-budget=2000 --print-to-pdf="$PWD/dist/BEH4VIOR-Fourfold-Preview.pdf" "file://$PWD/dist/BEH4VIOR-Fourfold-Offline.html"
+          python3 -c 'from pypdf import PdfReader; pages=len(PdfReader("dist/BEH4VIOR-Fourfold-Preview.pdf").pages); print("Offline printed pages:",pages); assert pages==1,"Offline worksheet spilled to multiple pages"'
+      - name: Package offline app and demonstration print
+        uses: actions/upload-artifact@v4
+        with:
+          name: beh4vior-offline-app
+          path: dist/

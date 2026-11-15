@@ -18,6 +18,12 @@ The pre-existing **The five** tracker remains 5 × 20 points and its school-shee
 
 Launch-ready code for a private test at `beh4vior.takatak.ca`, signed in through TAKATAK-V1. Not deployed yet. See [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) and [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 
+## Use the four-fold worksheet without a server
+
+For a no-login, no-network printable copy, run `npm run build:offline` (or download the `beh4vior-offline-app` ZIP from the GitHub Actions run for this release). Open `dist/BEH4VIOR-Fourfold-Offline.html` in a browser and choose Print. No separate account is required and the bundled page has no remote dependencies.
+
+The copy stores data only in the browser if the browser permits local-file storage, otherwise it remains usable for editing and printing without saving. It does **not** sync with TAKATAK-V1 or the school; it is not the real multi-user app. Use a trusted device, never email a completed sheet without consent, and do not treat the generated score as the teacher's final assessment.
+
 ## Try it
 
 Node 22.
