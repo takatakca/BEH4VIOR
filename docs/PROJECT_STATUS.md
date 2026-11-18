@@ -2,6 +2,14 @@
 
 Last updated 2026-11-14. — signed: GPT-6 @ ChatGPT · 2026-11-14 (preserving older notes below)
 
+## 2026-11-18 safe addition: optional three-goal communication sheet
+
+- Adds three self-reflection goals (using words, listening, waiting to speak) as a second browser-local worksheet mode alongside the original four-goal sheet. No migration of saved four-goal worksheets.
+- Goal weights total 100: 34+33+33; sad = 0, neutral = half, happy = full, final total rounded. Old four-goal neutral ratings still yield **10**, unchanged.
+- A select control makes the option explicit, with a confirmation before replacing a day's goal list. `?mode=three` previews the three-goal version only when no day record was previously stored.
+- The print format remains four quarters on one US-letter sheet and retains the motivation message, previous score, and one handwriting line.
+- No change to live server storage, user authentication, real child data, or the privacy and deployment gates tracked in issues #5/#6.
+
 ## 2026-11-14 offline export (PR #7 merged)
 
 - Standalone HTML build: `npm run build:offline` creates `dist/BEH4VIOR-Fourfold-Offline.html` with local scripts and a no-network CSP. GitHub CI artifact `beh4vior-offline-app` includes the editable HTML and a sample printable PDF. Open HTML in a browser; use Print / Save as PDF.
