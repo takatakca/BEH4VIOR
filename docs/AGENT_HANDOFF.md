@@ -4,7 +4,7 @@
 
 Owner requested **beh4vior.takatak.ca LIVE**, production only, no staging. Verified GitHub production runbook and both V1 routes on `main`, but no connected Coolify/DNS administration tool, production Postgres connection, service token, session secret or owner pilot master-identity allowlist are available. Public HTTPS endpoint could not be verified as live. Do not claim launch or enable real child data.
 
-Branch `feat/production-private-pilot-gate-20261118` adds a fail-closed production-only allowlist (explicit approved adult IDs configured in Coolify; GET `/healthz` and `/auth/start` fail until set; denied adult /auth/callback gives 403; revoked signed cookie no longer authorizes `/api/state`) plus smoke-test runbook `docs/PRODUCTION_LAUNCH_2026-11-18.md`. Credentials belong only in authorized production secret stores. Next: run CI, merge safe guard, connect existing Coolify/DNS and configure both app/V1 secrets; verify two identities after privacy gates.
+PR #9 merged into main as `a5209d67b29f012e0acbacb524b4805aa57a5c80` (22 automated tests passed) and adds a fail-closed production-only allowlist (explicit approved adult IDs configured in Coolify; GET `/healthz` and `/auth/start` fail until set; denied adult /auth/callback gives 403; revoked signed cookie no longer authorizes `/api/state`) plus smoke-test runbook `docs/PRODUCTION_LAUNCH_2026-11-18.md`. Credentials belong only in authorized production secret stores. Next: run CI, merge safe guard, connect existing Coolify/DNS and configure both app/V1 secrets; verify two identities after privacy gates.
 
 
 ## 2026-11-18 update - GPT-6 @ ChatGPT
