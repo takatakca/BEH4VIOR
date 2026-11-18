@@ -48,7 +48,7 @@
     const weights = mode === 'three' ? MAX_THREE : MAX;
     if (i >= weights.length) return 0;
     if (value === 'happy') return weights[i];
-    if (value === 'ok') return mode === 'three' ? weights[i] / 2 : (i === 0 ? 0 : 10);
+    if (value === 'ok') return mode === 'three' ? weights[i] / 2 : (i === 0 ? 0 : 15);
     return 0;
   }
   function score(day) {
