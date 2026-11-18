@@ -25,6 +25,7 @@ One Node 22 container (`Dockerfile`, port 3000, health at `/healthz`) and one Po
    - `TAKATAK_BEH4VIOR_EXCHANGE_URL=https://takatak.ca/api/experiences/beh4vior/exchange`
    - `TAKATAK_BEH4VIOR_SERVICE_TOKEN=<the same token>`
    - `BEH4VIOR_SESSION_SECRET=<a different random value, 32+ characters>`
+   - `BEH4VIOR_PILOT_MASTER_IDS=<one or more permitted adult TAKATAK masterIdentityId values>` **required**; private Coolify environment value only; never put names, school or child's details in this value
    - `DATABASE_URL=<the internal Postgres URL from Coolify>`
 7. **Smoke test, in this order:**
    - `GET https://beh4vior.takatak.ca/healthz` answers `{"ok":true,"signIn":"takatak-v1","storage":"postgres"}`. A 503 names what is missing.
@@ -35,9 +36,10 @@ One Node 22 container (`Dockerfile`, port 3000, health at `/healthz`) and one Po
 
 ## Rules
 
+- In production the app refuses to run as healthy without a valid `BEH4VIOR_PILOT_MASTER_IDS` list; unauthorized identities get 403 at the callback, and existing sessions stop working after their ID is removed. This is a private pilot only, not general enrollment.
 - In production the app refuses to start half-configured: no file storage, no demo mode, no test login.
 - Request bodies are never logged. Do not add request logging that prints bodies: they hold a child's sheet.
-- Any V1 account can sign in and gets its own empty space. That is acceptable for a private test because the address is unlisted and nothing is shared between accounts, but do not announce the address before the consent and privacy gate in TASK_QUEUE.md is closed.
+- **Do not rely on an unlisted URL to restrict access.** The production callback now requires an explicitly allowed adult TAKATAK master identity ID. Leave the pilot list empty until the owner approves the private access and consent plan. No child records should be entered before the owner closes the privacy gate in `TASK_QUEUE.md`.
 - Rollback: redeploy the previous image. The database schema is one table and has not changed.
 
 ## Local

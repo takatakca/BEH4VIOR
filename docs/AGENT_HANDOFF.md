@@ -1,5 +1,12 @@
 # BEH4VIOR: agent handoff
 
+## 2026-11-18 production launch attempt — GPT-6 @ ChatGPT
+
+Owner requested **beh4vior.takatak.ca LIVE**, production only, no staging. Verified GitHub production runbook and both V1 routes on `main`, but no connected Coolify/DNS administration tool, production Postgres connection, service token, session secret or owner pilot master-identity allowlist are available. Public HTTPS endpoint could not be verified as live. Do not claim launch or enable real child data.
+
+Branch `feat/production-private-pilot-gate-20261118` adds a fail-closed production-only allowlist (explicit approved adult IDs configured in Coolify; GET `/healthz` and `/auth/start` fail until set; denied adult /auth/callback gives 403; revoked signed cookie no longer authorizes `/api/state`) plus smoke-test runbook `docs/PRODUCTION_LAUNCH_2026-11-18.md`. Credentials belong only in authorized production secret stores. Next: run CI, merge safe guard, connect existing Coolify/DNS and configure both app/V1 secrets; verify two identities after privacy gates.
+
+
 ## 2026-11-18 update - GPT-6 @ ChatGPT
 
 PR #8 merged into main as `019bb37450089d8bb0016ad86e049257da9fc321`. Adds an optional three-goal feelings/listening/turn-taking print-card mode, 34/33/33 weights (final total rounds to 100), sad/neutral/happy choices on each goal, and retains older 4-goal 10+30+30+30 plus exact original 15-point neutral credits. Browser-local only; the existing TAKATAK-authenticated five-goal daily tracker was not migrated. Preview on a clean day with `/foldable?mode=three`. CI run 44274129288: 19 tests pass and both server and offline print outputs fit one US-letter page. Updated self-contained HTML is available in that run's `beh4vior-offline-app` artifact.

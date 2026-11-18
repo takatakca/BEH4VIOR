@@ -33,6 +33,13 @@ function httpsUrl(raw, prod) {
 
 function createApp(env = process.env, deps = {}) {
   const prod = env.NODE_ENV === 'production';
+  // Production starts as a private pilot. The only accepted identity IDs are
+  // explicitly configured in the hosting secrets, never in the public repo.
+  const rawPilot = (env.BEH4VIOR_PILOT_MASTER_IDS || '').trim();
+  const pilotParts = rawPilot ? rawPilot.split(',').map(id => id.trim()) : [];
+  const pilotReady = !prod || (pilotParts.length > 0 && pilotParts.length <= 20 &&
+    pilotParts.every(id => /^[A-Za-z0-9-]{8,64}$/.test(id)));
+  const pilotIds = prod && pilotReady ? new Set(pilotParts) : new Set();
   const cfg = {
     launch: httpsUrl(env.TAKATAK_BEH4VIOR_LAUNCH_URL || '', prod),
     exchange: httpsUrl(env.TAKATAK_BEH4VIOR_EXCHANGE_URL || '', prod),
@@ -41,6 +48,7 @@ function createApp(env = process.env, deps = {}) {
     origin: (httpsUrl(env.BEH4VIOR_PUBLIC_ORIGIN || '', prod) || {}).origin || null,
     demo: !prod && env.BEH4VIOR_DEMO === '1',
     devLogin: !prod && env.BEH4VIOR_DEV_LOGIN === '1',
+    pilotReady,
   };
   if (!prod && !cfg.secret) cfg.secret = crypto.randomBytes(32).toString('hex'); // local runs only
   const authReady = !!(cfg.launch && cfg.exchange && cfg.token.length >= 20 && cfg.secret.length >= 32);
@@ -60,7 +68,8 @@ function createApp(env = process.env, deps = {}) {
     if (!body || !mac || !safeEqual(mac, b64url(crypto.createHmac('sha256', cfg.secret).update(body).digest()))) return null;
     try {
       const p = JSON.parse(Buffer.from(body, 'base64url').toString('utf8'));
-      return p && typeof p.id === 'string' && p.exp > Date.now() ? p : null;
+      return p && typeof p.id === 'string' && p.exp > Date.now() &&
+        (!prod || pilotIds.has(p.id)) ? p : null;
     } catch { return null; }
   };
   const cookies = req => Object.fromEntries((req.headers.cookie || '').split(';').map(c => c.trim().split('=')).filter(p => p.length === 2));
@@ -117,7 +126,8 @@ function createApp(env = process.env, deps = {}) {
       if (req.method === 'GET' && p === '/healthz') {
         let db = storage ? storage.kind : 'not_configured';
         if (storage) { try { await storage.ping(); } catch { db = 'unreachable'; } }
-        const ok = cfg.demo || (authReady || cfg.devLogin) && storage && db !== 'unreachable';
+        const ok = cfg.demo || (authReady || cfg.devLogin) && storage &&
+          db !== 'unreachable' && cfg.pilotReady;
         return send(res, ok ? 200 : 503, { ok: !!ok, mode: cfg.demo ? 'demo' : 'app', signIn: authReady ? 'takatak-v1' : cfg.devLogin ? 'dev' : 'not_configured', storage: db });
       }
       if (req.method === 'GET' && p === '/favicon.ico') return send(res, 204, '');
@@ -129,7 +139,7 @@ function createApp(env = process.env, deps = {}) {
       if (req.method === 'GET' && p === '/auth/start') {
         if (cfg.demo) return redirect(res, '/');
         if (cfg.devLogin && !authReady) return redirect(res, '/', { 'Set-Cookie': sessionCookie('dev-local', 'Local test', Date.now() + SESSION_MAX_MS) });
-        if (!authReady) return send(res, 503, 'Sign-in is not configured yet.');
+        if (!authReady || !cfg.pilotReady) return send(res, 503, 'Private sign-in is not configured yet.');
         const state = b64url(crypto.randomBytes(32)); // 43 characters, as V1 requires
         const to = new URL(cfg.launch); to.searchParams.set('state', state);
         return redirect(res, to.toString(), { 'Set-Cookie': `${stateName}=${state}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${STATE_MAX_S}${secure}` });
@@ -152,6 +162,11 @@ function createApp(env = process.env, deps = {}) {
         if (!session || session.productCode !== 'beh4vior' || !Array.isArray(session.entitlements) || !session.entitlements.includes('beh4vior_free') ||
           typeof session.masterIdentityId !== 'string' || !/^[A-Za-z0-9-]{8,64}$/.test(session.masterIdentityId) || !(until > Date.now())) {
           return send(res, 403, 'TAKATAK could not confirm this sign-in. Open BEH4VIOR again to retry.', { 'Set-Cookie': clear(stateName) });
+        }
+        // Never create a signed session for unapproved production accounts.
+        if (prod && (!cfg.pilotReady || !pilotIds.has(session.masterIdentityId))) {
+          return send(res, 403, 'This account is not enabled for the private BEH4VIOR pilot.',
+            { 'Set-Cookie': clear(stateName) });
         }
         const exp = Math.min(until, Date.now() + SESSION_MAX_MS);
         const name = typeof session.displayName === 'string' ? session.displayName.slice(0, 80) : '';
