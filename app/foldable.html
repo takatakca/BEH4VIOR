@@ -3,10 +3,10 @@
 <meta name="robots" content="noindex,nofollow"><title>Four-fold challenge maker — BEH4VIOR</title>
 <style>
 :root{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:#172439;background:#f3f6fb}
-*{box-sizing:border-box}body{margin:0}button,input,textarea{font:inherit}button{cursor:pointer}
+*{box-sizing:border-box}body{margin:0}button,input,textarea,select{font:inherit}button{cursor:pointer}
 header,.editor{max-width:850px;margin:auto;padding:16px}header a{color:#254fc6}h1{font-size:1.6rem}
 .editor{display:grid;gap:14px}.editor fieldset{border:1px solid #c4cad9;border-radius:12px;background:white;display:grid;gap:10px}
-.editor label{display:grid;gap:5px;font-weight:600}.editor input,.editor textarea{border:1px solid #a6afc2;border-radius:8px;padding:9px;max-width:100%}
+.editor label{display:grid;gap:5px;font-weight:600}.editor input,.editor textarea,.editor select{border:1px solid #a6afc2;border-radius:8px;padding:9px;max-width:100%;background:#fff}
 .controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}.small{font-size:.85rem;color:#45546b}
 .goal-input{display:grid;grid-template-columns:1fr 52px;gap:10px;align-items:center}
 .rating-controls{display:flex;justify-content:space-around;gap:10px;align-items:center;padding-bottom:4px}
@@ -46,12 +46,13 @@ header,.editor{max-width:850px;margin:auto;padding:16px}header a{color:#254fc6}h
 <header><p><a href="/">← Back to daily tracker</a></p><h1>Four-fold challenge maker</h1><p class="small">One sheet, four equal panels, three smiley choices. Stored on this device only; not sent to BEH4VIOR or TAKATAK servers.</p></header>
 <section class="editor" aria-label="Edit worksheet"><div class="controls">
 <label>Date <input id="day" type="date"></label>
+<label>Daily goals <select id="mode"><option value="four">4 goals - 10/30/30/30</option><option value="three">3 goals - talk/listen/wait</option></select></label>
 <label>Child's first name <input id="name" autocomplete="off" maxlength="40" placeholder="First name"></label>
 <label>Previous day's score, if known <input id="previous" type="number" min="0" max="100" placeholder="out of 100"></label></div>
 <label>Motivation message <textarea id="motivation" maxlength="200" rows="2"></textarea></label>
-<fieldset><legend><strong>Four challenges — 10 + 30 + 30 + 30 = 100 points</strong></legend>
+<fieldset><legend><strong id="goals-title">Four challenges - 10 + 30 + 30 + 30 = 100 points</strong></legend>
 <div id="goals-editor"></div></fieldset>
-<p class="small">Choose a face for each goal. Goal 1 is Yes/No (0 or 10). Goals 2–4 earn 0, 15, or 30. A blank face is unscored.</p>
+<p id="scoring-help" class="small">Choose a face for each goal. Goal 1 is Yes/No (0 or 10). Goals 2-4 earn 0, 15, or 30. A blank face is unscored.</p>
 <div class="actions"><button type="button" id="print">Print or save as PDF</button><button type="button" id="clear">Clear this day's saved worksheet</button></div>
 <p id="status" role="status" class="hint"></p>
 </section>

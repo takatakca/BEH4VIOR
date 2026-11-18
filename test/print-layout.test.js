@@ -8,8 +8,8 @@ const { traceName } = require('../app/tracing-core.js');
 const app = file => fs.readFileSync(path.join(__dirname, '..', 'app', file), 'utf8');
 
 test('name is traced once using real pen-stroke paths', () => {
-  const result = traceName('Matthys');
-  assert.equal(result.label, 'MATTHYS');
+  const result = traceName('Charlie');
+  assert.equal(result.label, 'CHARLIE');
   assert.equal(result.glyphs.length, 7);
   assert.ok(result.glyphs.every(g => g.path.startsWith('M') && g.transform.includes('scale(')));
   assert.ok(result.glyphs.every(g => !g.path.includes('<')));
@@ -37,7 +37,7 @@ test('print layout uses four equal portrait panels and center fold guides', () =
 
 test('four distinct challenges, special yes/no face and no user content as markup', () => {
   const js = app('foldable.js');
-  assert.match(js, /if \(index !== 0\) buttons\.append\(makeChoice\(index, 'ok'\)\)/);
+  assert.match(js, /if \(state\.mode === 'three' \|\| index !== 0\) buttons\.append\(makeChoice\(index, 'ok'\)\)/);
   assert.match(js, /blocked\.textContent = 'N\/A'/);
   assert.match(js, /words\.textContent = goal\.text/);
   assert.match(js, /traceRoot\.replaceChildren\(\)/);

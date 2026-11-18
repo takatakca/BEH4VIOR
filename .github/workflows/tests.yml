@@ -36,11 +36,15 @@ jobs:
           test -s /tmp/beh4vior-foldable.pdf
           python3 -m pip install --quiet pypdf
           python3 -c 'from pypdf import PdfReader; pages=len(PdfReader("/tmp/beh4vior-foldable.pdf").pages); print("Printed pages:",pages); assert pages==1,"Foldable worksheet spilled to multiple pages"'
+          "$browser" --headless --no-sandbox --disable-dev-shm-usage --disable-gpu --no-pdf-header-footer --virtual-time-budget=2500 --print-to-pdf=/tmp/beh4vior-three-goals.pdf "http://127.0.0.1:3000/foldable?mode=three"
+          python3 -c 'from pypdf import PdfReader; doc=PdfReader("/tmp/beh4vior-three-goals.pdf"); txt=doc.pages[0].extract_text().lower(); print("3-goal print pages:",len(doc.pages)); assert len(doc.pages)==1; assert "before i become upset" in txt, "3-goal wording missing from printed page"'
       - name: Save print QA PDF for review
         uses: actions/upload-artifact@v4
         with:
           name: foldable-print-qa
-          path: /tmp/beh4vior-foldable.pdf
+          path: |
+            /tmp/beh4vior-foldable.pdf
+            /tmp/beh4vior-three-goals.pdf
       - name: Build a standalone offline printable app
         run: npm run build:offline
       - name: Print offline file via headless Chrome
