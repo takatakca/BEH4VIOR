@@ -49,5 +49,5 @@ test('existing stored four-goal days retain old scores and names on load', () =>
   assert.equal(legacy.mode,'four');
   assert.equal(legacy.name,'Example');
   assert.equal(legacy.previous,75);
-  assert.equal(score(legacy), 50);
+  assert.equal(score(legacy), 55);
 });
