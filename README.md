@@ -8,6 +8,12 @@ The school already sends home a sheet with a face for each part of the day. BEH4
 - The teacher does nothing extra. A goal is tied to a part of the day the teacher already rates, and the face for that part of the day fills the star.
 - A smiley is 20%, a straight face is 10%, a sad face is 0%.
 
+## Optional three-goal talking / listening challenge
+
+The standalone local-only print card at `/foldable` now offers a **Daily goals** selector. The existing four-goal 10/30/30/30 version is preserved. The optional **three-goal** version focuses on speaking about feelings, listening to a reply and waiting a turn to speak, with sad/neutral/happy choices on every row. Each of three goals has roughly one-third of a 100-point maximum (weights 34+33+33, fractional half-credit rounded for the final total). The selection is saved **only in that day's local browser record** and does not modify any authenticated family data in the five-goal server tracker. Switching types prompts before replacing that day's goals and ratings.
+
+A preview of the three-goal mode on an unsaved day can be opened at `/foldable?mode=three`; the offline HTML supports the same query. Children’s names and teacher reports are intentionally not included in this public repository. Parent-entered historical scores are never misrepresented as school-verification.
+
 ## Four-fold worksheet maker (first weekly increment)
 
 Open **/foldable** (or **Print card** from the daily tracker). This is a separate printable-card editor: four equal portrait-letter panels; 4 editable goals; a 10-point Yes/No reflection question plus three 30-point goals; sad / straight / happy scoring faces; previous score; motivational note; and one dotted pen-stroke first-name tracing line. The teacher's assessment stays final. The child's scores and name in this editor use browser localStorage only and **do not upload or sync**. Browser storage is not encrypted and is visible to other people using the same browser profile; avoid entering real child information before the privacy/consent gate is closed. Use a trusted device; Clear this day's saved worksheet removes the selected day from that browser. Printing is local.
