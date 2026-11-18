@@ -23,7 +23,7 @@
   function load(date) {
     let raw = null;
     try { raw = localStorage.getItem(key(date)); } catch { $('status').textContent = 'Browser storage is unavailable. You can still print, but changes may not be saved.'; }
-    try { return core.normalize(raw ? JSON.parse(raw) : null, date); }
+    try { return raw ? core.normalize(JSON.parse(raw), date) : core.newDay(date, new URLSearchParams(location.search).get('mode') === 'three' ? 'three' : 'four'); }
     catch { return core.newDay(date); }
   }
   function save() {
