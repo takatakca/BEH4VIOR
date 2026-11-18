@@ -35,7 +35,7 @@
     return Number.isNaN(d.getTime()) ? 'Daily' : d.toLocaleDateString('en-CA', {weekday: 'long'});
   }
   function selectRating(index, kind) {
-    if (index === 0 && kind === 'ok') return;
+    if (state.mode !== 'three' && index === 0 && kind === 'ok') return;
     state.goals[index].rating = state.goals[index].rating === kind ? null : kind;
     save();
     drawGoals();
@@ -45,7 +45,7 @@
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'choice';
-    const n = index === 0 ? (kind === 'happy' ? 10 : 0) : (kind === 'happy' ? 30 : kind === 'ok' ? 15 : 0);
+    const n = core.points({rating: kind}, index, state.mode);
     button.innerHTML = faceSvg(kind) + '<span>' + n + ' points</span>';
     button.setAttribute('aria-pressed', state.goals[index].rating === kind ? 'true' : 'false');
     button.setAttribute('aria-label', (kind === 'sad' ? 'Not yet' : kind === 'ok' ? 'I tried' : 'I did it') + ', goal ' + (index + 1) + ', ' + n + ' points');
@@ -78,7 +78,7 @@
       buttons.setAttribute('role', 'group');
       buttons.setAttribute('aria-label', 'Score goal ' + (index + 1));
       buttons.append(makeChoice(index, 'sad'));
-      if (index !== 0) buttons.append(makeChoice(index, 'ok'));
+      if (state.mode === 'three' || index !== 0) buttons.append(makeChoice(index, 'ok'));
       buttons.append(makeChoice(index, 'happy'));
       wrap.append(label, buttons);
       holder.append(wrap);
@@ -107,7 +107,7 @@
       const faces = document.createElement('div');
       faces.className = 'faces';
       faces.append(printFace('sad', goal.rating));
-      if (i === 0) {
+      if (state.mode === 'four' && i === 0) {
         const blocked = document.createElement('span');
         blocked.className = 'notapplicable';
         blocked.textContent = 'N/A';
@@ -140,7 +140,7 @@
   function drawLegend() {
     const holder = $('legend');
     holder.replaceChildren();
-    [['happy', 'I did it (full points)'], ['ok', 'I tried (half points on big goals)'], ['sad', 'Still working on it (0 points)']].forEach(([kind, label]) => {
+    [['happy', 'I did it (full points)'], ['ok', state.mode === 'three' ? 'I tried (half points)' : 'I tried (half points on big goals)'], ['sad', 'Still working on it (0 points)']].forEach(([kind, label]) => {
       const p = document.createElement('p');
       p.innerHTML = faceSvg(kind);
       const span = document.createElement('span');
@@ -151,12 +151,29 @@
   }
   function populate() {
     $('day').value = day;
+    $('mode').value = state.mode;
+    $('goals-title').textContent = state.mode === 'three' ? 'Three challenges - each goal is one third of 100 points' : 'Four challenges - 10 + 30 + 30 + 30 = 100 points';
+    $('scoring-help').textContent = state.mode === 'three' ? 'Choose a sad, straight, or happy face for every goal (0, half, or full points). All three goals count equally, with 100 as the maximum.' : 'Choose a face for each goal. Goal 1 is Yes/No (0 or 10). Goals 2-4 earn 0, 15, or 30. A blank face is unscored.';
     $('name').value = state.name;
     $('previous').value = state.previous;
     $('motivation').value = state.motivation;
     drawGoals();
     drawPreview();
+    drawLegend();
   }
+  $('mode').addEventListener('change', e => {
+    const requested = e.target.value === 'three' ? 'three' : 'four';
+    if (requested === state.mode) return;
+    if (!window.confirm('Switching the goal style replaces today\'s goals and ratings. Continue?')) {
+      e.target.value = state.mode; return;
+    }
+    const before = state;
+    state = core.newDay(day, requested);
+    state.name = before.name;
+    state.previous = before.previous;
+    state.motivation = before.motivation;
+    save(); populate();
+  });
   $('day').addEventListener('change', e => {
     if (!/^\d{4}-\d{2}-\d{2}$/.test(e.target.value)) return;
     day = e.target.value;
@@ -173,7 +190,7 @@
   $('clear').addEventListener('click', () => {
     if (!window.confirm('Clear this day\'s locally saved worksheet?')) return;
     try { localStorage.removeItem(key(day)); } catch {}
-    state = core.newDay(day);
+    state = core.newDay(day, state.mode);
     populate();
     $('status').textContent = 'This day was cleared from this browser.';
   });
