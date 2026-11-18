@@ -2,6 +2,11 @@
 
 Newest decisions from the owner go first. — signed: Claude (Fable 5.2) @ claude.ai chat · 2026-11-11 00:40 EST
 
+## Owner order 2026-11-18: 3-goal follow-up worksheet and catch-up celebration
+Add an **optional** three-goal daily worksheet mode for speaking about feelings, listening to an answer, and waiting a turn to respond. Use sad / neutral / happy choices for all three. Every goal is approximately one-third of 100 points (34+33+33 with proportional half-credit); do not convert or rescore the existing 4-goal 10+30+30+30 records. The owner may assign retrospective achievement scores, but **never label them as verified teacher scores** unless the teacher actually confirmed those scores. All named children, school reports, signed papers, and personalized printable packets stay outside this public repository; a copy was put in a restricted private Drive folder.
+
+Next: persist the optional goal style with the parent's authenticated daily record only after consent/privacy review and ensure historic goal modes round-trip correctly. Continue real printer QA and physical four-fold testing.
+
 ## Owner order 2026-11-14: grow a little every week
 
 Start with a real printable four-fold child challenge worksheet, then make small tested additions weekly rather than rewriting the whole product. The worksheet design established by the owner is **four goals totaling 100 points**: one 10-point binary feelings/reflection goal, and three 30-point behavior goals, three selectable sad/neutral/happy faces for the large goals, black N/A over the neutral choice for the binary goal, a motivation note, prior-day score, and one traceable first name.
