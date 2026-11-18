@@ -36,6 +36,7 @@ One Node 22 container (`Dockerfile`, port 3000, health at `/healthz`) and one Po
 
 ## Rules
 
+- In production the app refuses to run as healthy without a valid `BEH4VIOR_PILOT_MASTER_IDS` list; unauthorized identities get 403 at the callback, and existing sessions stop working after their ID is removed. This is a private pilot only, not general enrollment.
 - In production the app refuses to start half-configured: no file storage, no demo mode, no test login.
 - Request bodies are never logged. Do not add request logging that prints bodies: they hold a child's sheet.
 - Any V1 account can sign in and gets its own empty space. That is acceptable for a private test because the address is unlisted and nothing is shared between accounts, but do not announce the address before the consent and privacy gate in TASK_QUEUE.md is closed.
