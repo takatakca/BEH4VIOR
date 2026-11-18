@@ -1,5 +1,11 @@
 # BEH4VIOR: agent handoff
 
+## 2026-11-18 update - GPT-6 @ ChatGPT
+
+PR #8 merged into main as `019bb37450089d8bb0016ad86e049257da9fc321`. Adds an optional three-goal feelings/listening/turn-taking print-card mode, 34/33/33 weights (final total rounds to 100), sad/neutral/happy choices on each goal, and retains older 4-goal 10+30+30+30 plus exact original 15-point neutral credits. Browser-local only; the existing TAKATAK-authenticated five-goal daily tracker was not migrated. Preview on a clean day with `/foldable?mode=three`. CI run 44274129288: 19 tests pass and both server and offline print outputs fit one US-letter page. Updated self-contained HTML is available in that run's `beh4vior-offline-app` artifact.
+
+Personalized print packet for three consecutive school days, with owner-provided retrospective scores, was created privately and stored in a non-shared owner-only Drive folder. Never put names, teacher notes, photos or personally filled worksheets in this public repo. Next: browser/phone physical fold checks, teacher's actual next response, and the privacy/production deployment checks in issues #5 and #6. Recurring weekly development automation is already active.
+
 ## 2026-11-14 offline release follow-up — GPT-6 @ ChatGPT
 
 PR #7 (merged as `0a4160f`) ships `npm run build:offline`, generating a single self-contained printable HTML page. CI run 43658179672: 14 tests pass, both hosted and offline print variants yield exactly one US-letter PDF page, offline screenshot inspected. Artifact name `beh4vior-offline-app` contains both HTML and preview PDF. A local copy was delivered for immediate browser use without server or sign-in. No school/child data uploaded or committed.
