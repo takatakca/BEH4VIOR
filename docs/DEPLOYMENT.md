@@ -25,6 +25,7 @@ One Node 22 container (`Dockerfile`, port 3000, health at `/healthz`) and one Po
    - `TAKATAK_BEH4VIOR_EXCHANGE_URL=https://takatak.ca/api/experiences/beh4vior/exchange`
    - `TAKATAK_BEH4VIOR_SERVICE_TOKEN=<the same token>`
    - `BEH4VIOR_SESSION_SECRET=<a different random value, 32+ characters>`
+   - `BEH4VIOR_PILOT_MASTER_IDS=<one or more permitted adult TAKATAK masterIdentityId values>` **required**; private Coolify environment value only; never put names, school or child's details in this value
    - `DATABASE_URL=<the internal Postgres URL from Coolify>`
 7. **Smoke test, in this order:**
    - `GET https://beh4vior.takatak.ca/healthz` answers `{"ok":true,"signIn":"takatak-v1","storage":"postgres"}`. A 503 names what is missing.
